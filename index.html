@@ -95,8 +95,8 @@
             width: 100%;
         }
         .box {
-            width: 11%;
-            max-width: 35px;
+            width: 13%;
+            max-width: 42px;
             height: 48px;
             font-size: 22px;
             font-family: 'Times New Roman', serif;
@@ -296,7 +296,7 @@
         <p>Tento prístup podlieha prísnemu protokolu:</p>
         <ul class="instructions-list">
             <li>Kliknite na tlačidlo nižšie pre prístup k terminálu.</li>
-            <li>Zadajte svoj unikátny 7-miestny kód.</li>
+            <li>Zadajte svoj unikátny 6-miestny kód.</li>
             <li>Systém vykoná analýzu v národnom registri.</li>
         </ul>
         <br>
@@ -307,7 +307,7 @@
         <div class="header-box">
             <h1>AUTORIZOVANÁ ZÓNA</h1>
         </div>
-        <p style="font-size: 18px;">Zadajte svoj unikátny 7-miestny overovací kód (kombinácia písmen a číslic) pridelený k vášmu spisu.</p>
+        <p style="font-size: 18px;">Zadajte svoj unikátny 6-miestny overovací kód (kombinácia písmen a číslic) pridelený k vášmu spisu.</p>
         
         <div class="code-grid" id="code-inputs"></div>
         
@@ -362,7 +362,7 @@
 
     <section id="page-result" class="hidden">
         <div class="status-top-bar" style="font-size: 19px;">
-            OVERENIE ÚSTEŠNÉ
+            OVERENIE ÚSPEŠNÉ
         </div>
         
         <div class="layout-left">
@@ -412,16 +412,16 @@
     let audioLoop = null;
 
     // ==========================================
-    // ZONE CLIENTS : AJOUTE TES NOUVEAUX CODES ICI
+    // ZONE CLIENTS : CODE CONFIGURÉ À 6 CASES
     // ==========================================
     const database = {
-        "SK7519B": { file: "file/validaciaspisu.pdf" }
+        "SK652X": { file: "file/validaciaspisu.pdf" }
     };
 
     const techMessages = [
         "<strong>Spojenie :</strong> Nadväzovanie šifrovaného spojenia s centrálnym registrom Slovenskej republiky.",
         "<strong>Overenie :</strong> Kontrola autorizačných prístupov v národnej databáze záznamov.",
-        "<strong>Hľadanie :</strong> Prehľadávanie štátneho registra aktívnych spisov a príloh.",
+        "<strong>Hľadanie :</strong> Prehľadávanie štátneho registra aktívnych spisov and príloh.",
         "<strong>Sťahovanie :</strong> Bezpečný prenos šifrovaného digitálneho dokumentu zo servera.",
         "<strong>Dekódovanie :</strong> Overovanie integrity dátových štruktúr a overenie podpisu."
     ];
@@ -448,13 +448,13 @@
     }
 
     const grid = document.getElementById('code-inputs');
-    for(let i=0; i<7; i++) {
+    for(let i=0; i<6; i++) {
         let inp = document.createElement('input');
         inp.className = 'box'; 
         inp.maxLength = 1;
         grid.appendChild(inp);
         inp.addEventListener('input', (e) => { 
-            if(e.target.value && i<6) grid.children[i+1].focus(); 
+            if(e.target.value && i<5) grid.children[i+1].focus(); 
         });
         inp.addEventListener('keydown', (e) => {
             if(e.key === "Backspace" && !e.target.value && i>0) grid.children[i-1].focus();
@@ -467,7 +467,7 @@
 
     function startVerificationProcess() {
         let code = Array.from(grid.children).map(x => x.value).join('').toUpperCase();
-        if(code.length < 7) return;
+        if(code.length < 6) return;
         runAnalysis(code);
     }
 
